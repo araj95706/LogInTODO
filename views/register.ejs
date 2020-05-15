@@ -10,18 +10,13 @@
 <body>
     <h1>Register</h1>
     <form action="/register" method="POST">
-        <div>
-            Username
-            <input type="text" id="name" name="name" required>
-        </div>
+        <input placeholder="username" name="username">
         <br>
-        <div>
-            Password
-            <input type="password" id="password" name="password" required>
-        </div>
+        <input placeholder="password" name="password" type="password">
         <br>
-        <button id="btn">Register</button>
+        <button type="submit">Register</button>
     </form>
+    <br>
     <a href="/login"> login </a>
 
 </body>
