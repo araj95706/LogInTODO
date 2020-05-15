@@ -28,16 +28,26 @@ app.get("/register", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  let val = await write({
+  write({
     name: req.body.username,
     password: req.body.password,
-  });
-  if (val) {
-    res.redirect("/login");
-  } else {
-    // alert("xyz");
-    res.redirect("/register");
-  }
+  })
+    .then((val) => {
+      if (!val) {
+        res.redirect("/login");
+      } else {
+        res.redirect("/register");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  // if (val) {
+  //   res.redirect("/login");
+  // } else {
+  //   res.redirect("/register");
+  // }
 });
 
 app.listen(4444, () => {
