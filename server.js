@@ -18,9 +18,17 @@ app.post("/login", (req, res) => {
   read({
     name: req.body.username,
     password: req.body.password,
-  });
-
-  res.redirect("/index");
+  })
+    .then((val) => {
+      if (val) {
+        res.redirect("/index");
+      } else {
+        res.redirect("/login");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 app.get("/register", (req, res) => {
@@ -42,12 +50,6 @@ app.post("/register", async (req, res) => {
     .catch((err) => {
       console.error(err);
     });
-
-  // if (val) {
-  //   res.redirect("/login");
-  // } else {
-  //   res.redirect("/register");
-  // }
 });
 
 app.listen(4444, () => {

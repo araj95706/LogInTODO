@@ -28,13 +28,22 @@ async function read(user) {
   const Users = database.collection("Users");
 
   let query = { name: user.name, password: user.password };
-  await Users.findOne(query)
-    .then(() => {
-      console.log("user exist");
+  let found = false;
+  await Users.find(query)
+    .toArray()
+    .then((usert) => {
+      if (
+        usert[0] &&
+        usert[0].name == user.name &&
+        usert[0].password == user.password
+      ) {
+        found = true;
+      }
     })
     .catch((err) => {
-      console.log("success");
+      console.error(err);
     });
+  return found;
 }
 
 module.exports = {
