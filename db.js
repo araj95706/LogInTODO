@@ -7,6 +7,7 @@ async function write(user) {
   const Users = database.collection("Users");
   let query = { name: user.name };
   let found = true;
+
   await Users.findOne(query)
     .then((usert) => {
       if (!usert) {

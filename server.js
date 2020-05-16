@@ -23,7 +23,7 @@ app.post("/login", (req, res) => {
       if (val) {
         res.redirect("/index");
       } else {
-        res.redirect("/login");
+        res.status(400).send("username or password not valid");
       }
     })
     .catch((err) => {
@@ -44,7 +44,7 @@ app.post("/register", async (req, res) => {
       if (!val) {
         res.redirect("/login");
       } else {
-        res.redirect("/register");
+        res.status(400).send("username already exist");
       }
     })
     .catch((err) => {
