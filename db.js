@@ -6,12 +6,10 @@ async function write(user) {
   const database = client.db("database");
   const Users = database.collection("Users");
   let query = { name: user.name };
-
   let found = true;
-  await Users.find(query)
-    .toArray()
+  await Users.findOne(query)
     .then((usert) => {
-      if (!usert[0]) {
+      if (!usert) {
         found = false;
         Users.insertOne(user);
       }
@@ -27,16 +25,11 @@ async function read(user) {
   const database = client.db("database");
   const Users = database.collection("Users");
 
-  let query = { name: user.name, password: user.password };
   let found = false;
-  await Users.find(query)
-    .toArray()
+  let query = { name: user.name, password: user.password };
+  await Users.findOne(query)
     .then((usert) => {
-      if (
-        usert[0] &&
-        usert[0].name == user.name &&
-        usert[0].password == user.password
-      ) {
+      if (usert) {
         found = true;
       }
     })
